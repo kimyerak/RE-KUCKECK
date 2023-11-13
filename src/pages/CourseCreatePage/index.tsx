@@ -210,6 +210,7 @@ export const CourseCreatePage = () => {
       defaultValue: 'requireTime',
     },
   ];
+  const [otherLeadersEmails, setOtherLeadersEmails] = useState<string[]>([]);
 
   // 주요 스택
   const handleSelectedLanguages = (stack: Language) => {
@@ -318,6 +319,12 @@ export const CourseCreatePage = () => {
           emoji: currentUser?.emoji,
           comment: currentUser?.comment,
         },
+        otherLeaders: otherLeadersEmails.map(email => ({
+          id: '',
+          name: '',
+          emoji: '',
+          comment: '',
+        })),
         courseMember: [uId],
         courseStack: detailInform['courseStack'],
         language: selectedLanguages,
@@ -527,6 +534,25 @@ export const CourseCreatePage = () => {
               />
             </div>
           </StyledBodyBox>
+        </StyledBox>
+        <StyledBox>
+          <StyledTitleBox>
+            <StyledTitle>
+              <div>공동 세션장 등록</div>
+              <StyledLine></StyledLine>
+            </StyledTitle>
+          </StyledTitleBox>
+          <StyledHorizontalLine />
+          <StyledBodyBox>
+            <StyledInput
+              onChange={e => {
+                // 이메일을 배열에 추가
+                setOtherLeadersEmails(e.target.value.split(',').map(email => email.trim()));
+              }}
+              placeholder='쉼표(,)로 구분하여 여러 개 email입력'
+            />
+          </StyledBodyBox>
+          <StyledRegisterButton onClick={handleRegisterCourse}>등록하기</StyledRegisterButton>
         </StyledBox>
 
         <StyledBox>

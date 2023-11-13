@@ -30,4 +30,5 @@ interface Course extends CourseDeatilInfo {
   difficulty: string;
   requireTime: string;
   semester: string;
+  otherLeaders: OtherLeader[];
 }

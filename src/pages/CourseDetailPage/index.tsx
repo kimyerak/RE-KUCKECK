@@ -33,6 +33,17 @@ export const CourseDetailPage = ({ match }: RouteComponentProps<{ id: string }>)
     queryFn: getCourse,
     queryKey: [QUERY_KEY.course, courseId],
   });
+  const [otherLeadersEmails, setOtherLeadersEmails] = useState<string[]>([]);
+  const handleAddOtherLeaders = async () => {
+    // otherLeadersEmails 배열에 있는 이메일들을 서버에 전송 또는 다른 적절한 처리 수행
+    // 추가된 공동 세션장 정보를 화면에 반영
+    // 예시로, otherLeadersEmails를 data.otherLeaders에 추가
+    setOtherLeadersEmails([]);
+    setCourseDetailInform(prev => ({
+      ...prev,
+      otherLeaders: [...prev.otherLeaders, ...otherLeadersEmails],
+    }));
+  };
 
   const history = useHistory();
 
@@ -49,6 +60,7 @@ export const CourseDetailPage = ({ match }: RouteComponentProps<{ id: string }>)
     courseDate: '',
     coursePlace: '',
     courseNotice: '',
+    otherLeaders: string[]; // 새로 추가한 부분
   });
 
   const [courseCurriculum, setCourseCurriculum] = useState<string[]>([
@@ -130,6 +142,14 @@ export const CourseDetailPage = ({ match }: RouteComponentProps<{ id: string }>)
             <StyledSelect onClick={() => setMode('timetable')} selected={mode === 'timetable'}>
               <StyledTitle>시간표 수정</StyledTitle>
             </StyledSelect>
+
+            {/* 새로 추가되는 부분 시작 */}
+            <StyledSelect
+              onClick={() => setMode('otherLeaders')}
+              selected={mode === 'otherLeaders'}>
+              <StyledTitle>공동 세션장 추가</StyledTitle>
+            </StyledSelect>
+            {/* 새로 추가되는 부분 끝 */}
           </>
         )}
       </StyledEditButtonWrapper>

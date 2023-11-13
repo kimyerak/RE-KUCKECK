@@ -156,6 +156,33 @@ export const CourseIntroduce = ({
                 </StyledDescription>
               </StyledBox>
             </div>
+
+            {/* 공동팀장 정보 */}
+            {data.otherLeaders && data.otherLeaders.length > 0 && (
+              <div>
+                <StyledLeaderLine>
+                  <StyledTitle>공동팀장</StyledTitle>
+                  <StyledLine />
+                </StyledLeaderLine>
+                {data.otherLeaders.map(otherLeader => (
+                  <StyledLeaderBox key={otherLeader.id}>
+                    <StyledEmoji>{otherLeader.emoji}</StyledEmoji>
+                    <StyledDescBox>
+                      <StyledName>
+                        {otherLeader.name}&nbsp;<span style={{ fontFamily: 'sdLi' }}>님</span>
+                      </StyledName>
+                      <StyledComment>{otherLeader.comment}</StyledComment>
+                    </StyledDescBox>
+                    <StyledArrow
+                      src={`${process.env.PUBLIC_URL}/img/common/arrow.svg`}
+                      onClick={() => {
+                        history.push(`/profile/${otherLeader.id}`);
+                      }}
+                    />
+                  </StyledLeaderBox>
+                ))}
+              </div>
+            )}
           </StyledPcBox1>
         )}
 
@@ -250,9 +277,7 @@ export const CourseIntroduce = ({
                         }
                       />
                     ) : (
-                      <StyledDetailDesc>
-                        {curri}
-                      </StyledDetailDesc>
+                      <StyledDetailDesc>{curri}</StyledDetailDesc>
                     )}
                   </StyledDetailContainer>
                 ))}
